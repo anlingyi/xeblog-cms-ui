@@ -33,8 +33,6 @@ new Vue({
     this.$store.commit('d2admin/menu/headerSet', menuHeader)
     // 设置侧边栏菜单
     this.$store.commit('d2admin/menu/asideSet', menuAside)
-    // 初始化菜单搜索功能
-    this.$store.commit('d2admin/search/init', menuHeader)
   },
   mounted () {
     // 展示系统信息

@@ -20,7 +20,7 @@ export default {
         name: 'index',
         meta: {
           title: '首页',
-          requiresAuth: false
+          requiresAuth: true
         }
       }
     ]
@@ -28,10 +28,6 @@ export default {
   // 版本
   releases: {
     version
-  },
-  // 菜单搜索
-  search: {
-    enable: true
   },
   // 注册的主题
   theme: {
@@ -72,7 +68,7 @@ export default {
   // 在读取持久化数据失败时默认用户信息
   user: {
     info: {
-      name: 'Ghost'
+      name: ''
     }
   }
 }

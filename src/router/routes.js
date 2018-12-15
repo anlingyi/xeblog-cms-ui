@@ -1,5 +1,3 @@
-import demo from './modules/demo'
-
 import layoutHeaderAside from '@/layout/header-aside'
 
 const meta = { requiresAuth: true }
@@ -43,10 +41,23 @@ const frameIn = [
           },
           render: h => h()
         }
+      },
+      // 文章列表
+      {
+          path: '/articles-list',
+          name: 'articles-list',
+          component: () => import('@/pages/articles/list'),
+          meta: {meta, title: '文章列表'}
+      },
+      // 文章发布
+      {
+          path: '/articles-release',
+          name: 'articles-release',
+          component: () => import('@/pages/articles/release'),
+          meta: {meta, title: '文章发布'}
       }
     ]
-  },
-  demo
+  }
 ]
 
 /**

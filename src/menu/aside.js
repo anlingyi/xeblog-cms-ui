@@ -2,12 +2,11 @@
 export default [
   { path: '/index', title: '首页', icon: 'home' },
   {
-    title: '演示页面',
-    icon: 'folder-o',
-    children: [
-      { path: '/demo/page1', title: '页面 1' },
-      { path: '/demo/page2', title: '页面 2' },
-      { path: '/demo/page3', title: '页面 3' }
-    ]
+      title: '文章管理',
+      icon: 'newspaper-o',
+      children: [
+          { path: '/articles-list', title: '文章列表', icon: 'list' },
+          { path: '/articles-release', title: '文章发布', icon: 'send' }
+      ]
   }
 ]

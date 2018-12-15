@@ -8,6 +8,7 @@ module.exports = {
   baseUrl: baseUrl, // 根据你的实际情况更改这里
   lintOnSave: true,
   devServer: {
+    proxy: 'http://localhost:8080',
     publicPath: baseUrl // 和 baseUrl 保持一致
   },
   // 默认设置: https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-service/lib/config/base.js
