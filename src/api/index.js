@@ -12,11 +12,10 @@ export function AccountLogin (data) {
   })
 }
 // 登出
-export function Logout (data) {
+export function Logout () {
     return request({
         url: admin_api + 'logout',
         method: 'put',
-        data
     })
 }
 // 文章列表
@@ -24,6 +23,6 @@ export function ArticlesList (data) {
   return request({
     url: admin_api + 'articles',
     method: 'get',
-    data
+    params: data
   })
 }
