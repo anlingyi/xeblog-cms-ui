@@ -26,3 +26,11 @@ export function ArticlesList (data) {
     params: data
   })
 }
+// 删除文章
+export function DeleteArticle (data) {
+    return request({
+        url: admin_api + 'articles',
+        method: 'delete',
+        params: data
+    })
+}

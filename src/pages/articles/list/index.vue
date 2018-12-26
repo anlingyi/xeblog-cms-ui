@@ -30,7 +30,7 @@
         <template slot-scope="scope">
           <el-button size="small" type="primary" icon="el-icon-view" @click="viewArticle(scope.row.id)">查看</el-button>
           <el-button size="small" type="primary" icon="el-icon-edit" @click="">编辑</el-button>
-          <el-button size="small" type="danger" icon="el-icon-delete" @click="">删除</el-button>
+          <el-button size="small" type="danger" icon="el-icon-delete" @click="deleteArticleConfirm(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-    import { ArticlesList } from '@/api'
+    import * as api from '@/api'
     export default {
         data() {
             return {
@@ -59,11 +59,10 @@
         },
         methods: {
             getArticlesList () {
-                ArticlesList({
+                api.ArticlesList({
                     pageIndex: this.currentPage,
                     pageSize: this.pagesSize
                 }).then((response) => {
-                    console.log(response)
                     let data = response.data.data
                     this.articlesList = data.list
                     this.total = data.total
@@ -81,8 +80,29 @@
                 this.getArticlesList(this.currentPage, this.pagesize)
             },
             // 查看文章
-            viewArticle: function (id) {
+            viewArticle (id) {
                 window.location.href = this.$blog_url + 'archives/preview.html?id=' + id
+            },
+            // 删除文章
+            deleteArticleConfirm (val) {
+                this.$confirm('确认删除【'+ val.title +'】？', '确认操作', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                })
+                    .then(() => {
+                        this.deleteArticle(val.id)
+                        this.$message.success('删除成功')
+                        this.getArticlesList(this.currentPage, this.pagesize)
+                    })
+                    .catch(() => {
+                        this.$message('取消删除')
+                    })
+            },
+            deleteArticle(id){
+                api.DeleteArticle({
+                    id: id
+                })
             }
         },
         mounted() {

@@ -3,6 +3,7 @@ import { Message } from 'element-ui'
 import util from '@/libs/util'
 import axios from "axios"
 import Cookies from 'js-cookie'
+import router from '@/router'
 
 const api_url = 'http://127.0.0.1:8080/'
 
@@ -69,7 +70,10 @@ service.interceptors.response.use(function (response) {
           return response
         case 502:
             addLog('warning',data)
-            $router.push({path: '/login'})
+            // 跳转到登陆页
+            router.push({
+                name: 'login'
+            })
             break
         default:
             addLog('warning', data)
