@@ -34,3 +34,37 @@ export function DeleteArticle (data) {
         params: data
     })
 }
+// 文章详情
+export function ArticleDetails (data) {
+    return request({
+        url: admin_api + 'articles/details',
+        method: 'get',
+        params: data
+    })
+}
+// 文章类目选择列表
+export function CategorySelect () {
+    return request({
+        url: admin_api + 'categories/select',
+        method: 'get',
+    })
+}
+// 上传
+export function Upload (data) {
+    return request({
+        url: admin_api + 'upload',
+        method: 'post',
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+// 修改文章
+export function EditArticle (data) {
+    return request({
+        url: admin_api + 'articles',
+        method: 'put',
+        data
+    })
+}

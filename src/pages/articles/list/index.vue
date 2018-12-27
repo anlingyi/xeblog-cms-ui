@@ -29,7 +29,7 @@
       <el-table-column fixed="right" prop="address" label="操作" width="260">>
         <template slot-scope="scope">
           <el-button size="small" type="primary" icon="el-icon-view" @click="viewArticle(scope.row.id)">查看</el-button>
-          <el-button size="small" type="primary" icon="el-icon-edit" @click="">编辑</el-button>
+          <el-button size="small" type="primary" icon="el-icon-edit" @click="editArticle(scope.row.id)">编辑</el-button>
           <el-button size="small" type="danger" icon="el-icon-delete" @click="deleteArticleConfirm(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -83,7 +83,7 @@
             viewArticle (id) {
                 window.location.href = this.$blog_url + 'archives/preview.html?id=' + id
             },
-            // 删除文章
+            // 删除文章确认
             deleteArticleConfirm (val) {
                 this.$confirm('确认删除【'+ val.title +'】？', '确认操作', {
                     confirmButtonText: '确定',
@@ -99,10 +99,20 @@
                         this.$message('取消删除')
                     })
             },
+            // 删除文章
             deleteArticle(id){
                 api.DeleteArticle({
                     id: id
                 })
+            },
+            // 编辑文章
+            editArticle(id){
+              this.$router.push({
+                  name: 'articles-edit',
+                  query: {
+                      id: id
+                  }
+              })
             }
         },
         mounted() {

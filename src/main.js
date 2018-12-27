@@ -22,6 +22,7 @@ import { frameInRoutes } from '@/router/routes'
 Vue.use(d2Admin)
 
 Vue.prototype.$blog_url = 'http://127.0.0.1:63344/xeblog-ui/'
+Vue.prototype.$image_url = 'http://127.0.0.1:8080/'
 
 new Vue({
   router,

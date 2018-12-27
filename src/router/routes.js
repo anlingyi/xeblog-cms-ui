@@ -55,6 +55,13 @@ const frameIn = [
           name: 'articles-release',
           component: () => import('@/pages/articles/release'),
           meta: {meta, title: '文章发布'}
+      },
+      // 文章编辑
+      {
+          path: '/articles-edit',
+          name: 'articles-edit',
+          component: () => import('@/pages/articles/edit'),
+          meta: {meta, title: '文章编辑'}
       }
     ]
   }
