@@ -21,10 +21,10 @@
                 <el-option v-for="item in categoryList" :value="item.id" :label="item.name"/>
               </el-select>
             </el-form-item>
-            <el-form-item label="文章标签" prop="tag" class="label-bold input-width-500">
+            <el-form-item label="文章标签" class="label-bold input-width-500">
               <el-input v-model="article.tag" placeholder="标签"/>
             </el-form-item>
-            <el-form-item label="文章封面" prop="cover" class="label-bold input-width-500">
+            <el-form-item label="文章封面" class="label-bold input-width-500">
               <el-upload
                       class="avatar-uploader"
                       action="test"
@@ -36,7 +36,7 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
             </el-form-item>
-            <el-form-item label="置顶" prop="isTop" class="label-bold input-width-500">
+            <el-form-item label="置顶" class="label-bold input-width-500">
               <el-switch
                       v-model="article.isTop"
                       active-color="#13ce66"
@@ -45,7 +45,7 @@
                       :inactive-value="0">
               </el-switch>
             </el-form-item>
-            <el-form-item label="私有" prop="isPrivate" class="label-bold input-width-500">
+            <el-form-item label="私有" class="label-bold input-width-500">
               <el-switch
                       v-model="article.isPrivate"
                       active-color="#13ce66"
@@ -57,14 +57,16 @@
           </div>
           <div style="float: right;">
             <label style="font-weight: bold;display: block;font-size: 14px;color: #606266;">文章简述</label>
-            <el-input type="textarea" v-model="article.brief" style="width: 550px;" rows="9" placeholder="简述..." prop="brief"/>
+            <el-input type="textarea" v-model="article.brief" style="width: 550px;" rows="9" placeholder="简述..."/>
           </div>
         </el-collapse-item>
         <el-collapse-item title="title" name="2">
           <template slot="title">
             文章内容 <i class="fa fa-edit"></i>
           </template>
-          <d2-mde v-model="article.content" class="mde"/>
+          <el-form-item prop="content" style="margin-left: -80px">
+            <d2-mde v-model="article.content" class="mde"/>
+          </el-form-item>
         </el-collapse-item>
       </el-collapse>
     </el-form>
@@ -78,16 +80,16 @@
             return {
                 article: {
                     id: 0,
-                    cover: '',
+                    cover: null,
                     isTop: 0,
-                    isPrivate: 1,
-                    brief: '',
-                    title: '',
-                    categoryName: '',
-                    tag: '',
-                    author: '',
+                    isPrivate: 0,
+                    brief: null,
+                    title: null,
+                    categoryName: null,
+                    tag: null,
+                    author: null,
                     categoryId: 0,
-                    content: ''
+                    content: null
                 },
                 imageUrl: '',
                 categoryList: [],
@@ -102,6 +104,9 @@
                     ],
                     categoryId: [
                         {required: true, message: '请选择分类', trigger: 'blur'},
+                    ],
+                    content: [
+                        {required: true, message: '请输入文章内容', trigger: 'blur'},
                     ]
                 }
             }
