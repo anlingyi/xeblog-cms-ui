@@ -108,3 +108,51 @@ export function AddCategory (data) {
         data
     })
 }
+// 标签列表
+export function TagList (data) {
+    return request({
+        url: admin_api + 'tags',
+        method: 'get',
+        params: data
+    })
+}
+// 删除标签
+export function DeleteTag (data) {
+    return request({
+        url: admin_api + 'tags',
+        method: 'delete',
+        params: data
+    })
+}
+// 修改菜单
+export function EditMenu (data) {
+    return request({
+        url: admin_api + 'menu',
+        method: 'put',
+        data
+    })
+}
+// 添加菜单
+export function AddMenu (data) {
+    return request({
+        url: admin_api + 'menu',
+        method: 'post',
+        data
+    })
+}
+// 菜单列表
+export function MenuList (data) {
+    return request({
+        url: admin_api + 'menu',
+        method: 'get',
+        params: data
+    })
+}
+// 删除菜单
+export function DeleteMenu (data) {
+    return request({
+        url: admin_api + 'menu',
+        method: 'delete',
+        params: data
+    })
+}

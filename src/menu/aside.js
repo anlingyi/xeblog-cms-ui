@@ -15,5 +15,19 @@ export default [
         children: [
             { path: '/category-list', title: '分类列表', icon: 'list' },
         ]
+    },
+    {
+        title: '标签管理',
+        icon: 'tags',
+        children: [
+            { path: '/tags-list', title: '标签列表', icon: 'list' },
+        ]
+    },
+    {
+        title: '菜单管理',
+        icon: 'navicon',
+        children: [
+            { path: '/menu-list', title: '菜单列表', icon: 'list' },
+        ]
     }
 ]

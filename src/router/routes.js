@@ -69,6 +69,20 @@ const frameIn = [
           name: 'category-list',
           component: () => import('@/pages/category/list'),
           meta: {meta, title: '分类列表'}
+      },
+      // 标签列表
+      {
+          path: '/tags-list',
+          name: 'tags-list',
+          component: () => import('@/pages/tags/list'),
+          meta: {meta, title: '标签列表'}
+      },
+      // 菜单列表
+      {
+          path: '/menu-list',
+          name: 'menu-list',
+          component: () => import('@/pages/menu/list'),
+          meta: {meta, title: '菜单列表'}
       }
     ]
   }
