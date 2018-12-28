@@ -92,8 +92,6 @@
                 })
                     .then(() => {
                         this.deleteArticle(val.id)
-                        this.$message.success('删除成功')
-                        this.getArticlesList(this.currentPage, this.pagesize)
                     })
                     .catch(() => {
                         this.$message('取消删除')
@@ -103,7 +101,13 @@
             deleteArticle(id){
                 api.DeleteArticle({
                     id: id
-                })
+                }).then((res => {
+                    let data = res.data
+                    if(data.code === 200){
+                        this.$message.success('删除成功')
+                        this.getArticlesList(this.currentPage, this.pagesize)
+                    }
+                }))
             },
             // 编辑文章
             editArticle(id){

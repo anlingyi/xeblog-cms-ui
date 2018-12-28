@@ -76,3 +76,35 @@ export function AddArticle (data) {
         data
     })
 }
+// 分类列表
+export function CategoryList (data) {
+    return request({
+        url: admin_api + 'categories',
+        method: 'get',
+        params: data
+    })
+}
+// 删除分类
+export function DeleteCategory (data) {
+    return request({
+        url: admin_api + 'categories',
+        method: 'delete',
+        params: data
+    })
+}
+// 修改分类
+export function EditCategory (data) {
+    return request({
+        url: admin_api + 'categories',
+        method: 'put',
+        data
+    })
+}
+// 添加分类
+export function AddCategory (data) {
+    return request({
+        url: admin_api + 'categories',
+        method: 'post',
+        data
+    })
+}

@@ -8,5 +8,12 @@ export default [
           { path: '/articles-list', title: '文章列表', icon: 'list' },
           { path: '/articles-release', title: '文章发布', icon: 'send' }
       ]
-  }
+  },
+    {
+        title: '分类管理',
+        icon: 'archive',
+        children: [
+            { path: '/category-list', title: '分类列表', icon: 'list' },
+        ]
+    }
 ]

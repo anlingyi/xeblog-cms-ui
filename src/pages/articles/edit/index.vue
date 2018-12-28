@@ -1,7 +1,7 @@
 <template>
   <d2-container>
     <section style="margin-bottom: 10px; display: flex; flex-direction: row-reverse;">
-      <el-button type="primary" @click="editArticle">提交修改</el-button>
+      <el-button type="primary" icon="el-icon-edit-outline" @click="editArticle">提交修改</el-button>
     </section>
     <el-form ref="article" :rules="rules" :model="article" label-width="80px">
       <el-collapse accordion value="1">

@@ -62,6 +62,13 @@ const frameIn = [
           name: 'articles-edit',
           component: () => import('@/pages/articles/edit'),
           meta: {meta, title: '文章编辑', cache: true}
+      },
+      // 分类列表
+      {
+          path: '/category-list',
+          name: 'category-list',
+          component: () => import('@/pages/category/list'),
+          meta: {meta, title: '分类列表'}
       }
     ]
   }
