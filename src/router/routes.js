@@ -54,14 +54,14 @@ const frameIn = [
           path: '/articles-release',
           name: 'articles-release',
           component: () => import('@/pages/articles/release'),
-          meta: {meta, title: '文章发布'}
+          meta: {meta, title: '文章发布', cache: true}
       },
       // 文章编辑
       {
           path: '/articles-edit',
           name: 'articles-edit',
           component: () => import('@/pages/articles/edit'),
-          meta: {meta, title: '文章编辑'}
+          meta: {meta, title: '文章编辑', cache: true}
       }
     ]
   }

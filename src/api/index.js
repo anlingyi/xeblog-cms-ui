@@ -68,3 +68,11 @@ export function EditArticle (data) {
         data
     })
 }
+// 添加文章
+export function AddArticle (data) {
+    return request({
+        url: admin_api + 'articles',
+        method: 'post',
+        data
+    })
+}

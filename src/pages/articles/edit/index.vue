@@ -76,6 +76,7 @@
 <script>
     import * as api from '@/api'
     export default {
+        name: 'articles-edit',
         data() {
             return {
                 article: {
@@ -88,7 +89,7 @@
                     categoryName: null,
                     tag: null,
                     author: null,
-                    categoryId: 0,
+                    categoryId: null,
                     content: null
                 },
                 imageUrl: '',
