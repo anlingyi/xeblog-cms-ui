@@ -1,14 +1,14 @@
 <template>
   <d2-container>
     <section style="margin-bottom: 10px; display: flex; flex-direction: row-reverse;">
-      <el-button type="primary" icon="el-icon-plus" @click="showAddDialog = true">添加</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="showDialogs">添加</el-button>
     </section>
     <el-table :data="menuList" style="width: 100%" max-height="560">
       <el-table-column fixed prop="id" label="ID"></el-table-column>
       <el-table-column prop="name" label="菜单名称"></el-table-column>
       <el-table-column prop="icon" label="图标">
         <template slot-scope="scope">
-          <i :class="scope.row.icon"></i>
+          <i class="fa" :class="'fa-'+ scope.row.icon"></i>
         </template>
       </el-table-column>
       <el-table-column prop="orderId" label="排序"></el-table-column>
@@ -17,7 +17,7 @@
       <el-table-column prop="updateTime" label="更新时间"></el-table-column>
       <el-table-column fixed="right" prop="address" label="操作" width="260">>
         <template slot-scope="scope">
-          <el-button size="small" type="primary" icon="el-icon-edit" @click="showEdit(scope.row)">编辑</el-button>
+          <el-button size="small" type="primary" icon="el-icon-edit" @click="showDialogs(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" icon="el-icon-delete" @click="deleteMenuConfirm(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -31,44 +31,25 @@
             :total="total"
             background>
     </el-pagination>
-    <el-dialog title="添加菜单" :visible.sync="showAddDialog">
-      <el-form :model="menu" label-width="80px">
-        <el-form-item label="菜单名称">
+    <el-dialog :title="dialogTitle" :visible.sync="showDialog" :before-close="hideDialogs">
+      <el-form :model="menu" label-width="80px" :rules="menuRules" ref="menu">
+        <el-form-item label="菜单名称" prop="name">
           <el-input v-model="menu.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="图标">
-          <el-input v-model="menu.icon" autocomplete="off"></el-input>
+        <el-form-item label="图标" prop="icon">
+          <d2-icon-select v-model="menu.icon"/>
+          <el-input type="hidden" v-model="menu.icon" style="display: none;"/>
         </el-form-item>
-        <el-form-item label="跳转地址">
+        <el-form-item label="跳转地址" prop="url">
           <el-input v-model="menu.url" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="排序">
+        <el-form-item label="排序" prop="orderId">
           <el-input v-model="menu.orderId" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="showAddDialog = false">取 消</el-button>
-        <el-button type="primary" @click="showAddDialog = false">确 定</el-button>
-      </div>
-    </el-dialog>
-    <el-dialog title="修改菜单" :visible.sync="showEditDialog">
-      <el-form :model="menu" label-width="80px">
-        <el-form-item label="菜单名称">
-          <el-input v-model="menu.name" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="图标">
-          <el-input v-model="menu.icon" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="跳转地址">
-          <el-input v-model="menu.url" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="排序">
-          <el-input v-model="menu.orderId" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="showEditDialog = false">取 消</el-button>
-        <el-button type="primary" @click="showEditDialog = false">确 定</el-button>
+        <el-button @click="hideDialogs">取 消</el-button>
+        <el-button type="primary" @click="execute">确 定</el-button>
       </div>
     </el-dialog>
   </d2-container>
@@ -86,12 +67,27 @@
                     id: 0,
                     name: '',
                     url: '',
-                    orderId: '',
+                    orderId: 0,
                     icon: ''
                 },
                 pagesSize: 30,
-                showEditDialog: false,
-                showAddDialog: false
+                showDialog: false,
+                dialogTitle: '',
+                menuRules: {
+                    name: [
+                        {required: true, message: '请输入菜单名称', trigger: 'blur'}
+                    ],
+                    icon: [
+                        {required: true, message: '请选择菜单图标', trigger: 'change'}
+                    ],
+                    url: [
+                        {required: true, message: '请输入跳转地址', trigger: 'blur'},
+                    ],
+                    orderId: [
+                        {type: 'number', required: false, message: '请输入数字', trigger: 'blur', transform(val){
+                            return _.toNumber(val)}}
+                    ]
+                }
             }
         },
         methods: {
@@ -124,7 +120,7 @@
                     type: 'warning'
                 })
                     .then(() => {
-                        this.deleteCategory(val.id)
+                        this.deleteMenu(val.id)
                     })
                     .catch(() => {
                         this.$message('取消删除')
@@ -132,7 +128,7 @@
             },
             // 删除菜单
             deleteMenu(id){
-                api.DeleteCategory({
+                api.DeleteMenu({
                     id: id
                 }).then((res => {
                     let data = res.data
@@ -162,14 +158,53 @@
                     }
                 })
             },
-            // 显示编辑对话框
-            showEdit(val){
-                this.menu.id = val.id
-                this.menu.name = val.name
-                this.menu.icon = val.icon
-                this.menu.orderId = val.orderId
-                this.menu.url = val.url
-                this.showEditDialog = true
+            // 隐藏对话框
+            hideDialogs(){
+                this.$nextTick(() => {
+                    this.$refs['menu'].resetFields();
+                });
+                this.menu = {
+                    id: 0,
+                    name: '',
+                    url: '',
+                    orderId: 0,
+                    icon: ''
+                }
+                this.showDialog = false
+            },
+            // 显示对话框
+            showDialogs(val){
+                if(val.id){
+                    this.dialogTitle = '编辑菜单信息'
+                    this.menu.id = val.id
+                    this.menu.name = val.name
+                    this.menu.icon = val.icon
+                    this.menu.orderId = val.orderId
+                    this.menu.url = val.url
+                }else{
+                    this.dialogTitle = '添加菜单信息'
+                }
+
+               this.showDialog = true
+            },
+            // 校验菜单规则
+            checkMenu(){
+                let flag
+                this.$refs.menu.validate((valid) => {
+                     flag = valid
+                })
+                return flag
+            },
+            execute(){
+                if(!this.checkMenu()){
+                    return
+                }
+                if(this.menu.id){
+                    this.editMenu()
+                }else{
+                    this.addMenu()
+                }
+                this.hideDialogs()
             }
         },
         mounted() {
