@@ -156,3 +156,43 @@ export function DeleteMenu (data) {
         params: data
     })
 }
+// 修改网站信息
+export function EditWebsiteInfo (data) {
+    return request({
+        url: admin_api + 'website_info',
+        method: 'put',
+        data
+    })
+}
+// 获取网站信息
+export function GetWebsiteInfo (data) {
+    return request({
+        url: admin_api + 'website_info',
+        method: 'get',
+        data
+    })
+}
+// 修改用户信息
+export function EditUserInfo (data) {
+    return request({
+        url: admin_api + 'user_info',
+        method: 'put',
+        data
+    })
+}
+// 获取用户信息
+export function GetUserInfo (data) {
+    return request({
+        url: admin_api + 'user_info',
+        method: 'get',
+        data
+    })
+}
+// 修改用户密码
+export function EditPassword (data) {
+    return request({
+        url: admin_api + 'user_info/password',
+        method: 'put',
+        data
+    })
+}

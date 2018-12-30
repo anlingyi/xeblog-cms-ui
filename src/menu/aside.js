@@ -29,5 +29,14 @@ export default [
         children: [
             { path: '/menu-list', title: '菜单列表', icon: 'list' },
         ]
+    },
+    {
+        title: '网站管理',
+        icon: 'edge',
+        children: [
+            { path: '/website/info-edit', title: '网站信息修改', icon: 'edit' },
+            { path: '/website/blogger-edit', title: '博主信息修改', icon: 'id-card-o' },
+            { path: '/website/password-edit', title: '密码修改', icon: 'lock' },
+        ]
     }
 ]

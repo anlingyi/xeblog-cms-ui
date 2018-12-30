@@ -83,7 +83,28 @@ const frameIn = [
           name: 'menu-list',
           component: () => import('@/pages/menu/list'),
           meta: {meta, title: '菜单列表'}
-      }
+      },
+        // 网站信息修改
+        {
+            path: '/website/info-edit',
+            name: 'website-info-edit',
+            component: () => import('@/pages/website/info/edit'),
+            meta: {meta, title: '网站信息修改', cache: true}
+        },
+        // 博主信息修改
+        {
+            path: '/website/blogger-edit',
+            name: 'website-blogger-edit',
+            component: () => import('@/pages/website/blogger/edit'),
+            meta: {meta, title: '博主信息修改', cache: true}
+        },
+        // 密码修改
+        {
+            path: '/website/password-edit',
+            name: 'website-password-edit',
+            component: () => import('@/pages/website/password/edit'),
+            meta: {meta, title: '密码修改', cache: true}
+        }
     ]
   }
 ]

@@ -33,6 +33,7 @@
 require('particles.js')
 import config from './config/default'
 import { mapActions } from 'vuex'
+import 'font-awesome/css/font-awesome.min.css'
 export default {
   data () {
     return {
