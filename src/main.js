@@ -21,8 +21,8 @@ import { frameInRoutes } from '@/router/routes'
 // 核心插件
 Vue.use(d2Admin)
 
-Vue.prototype.$blog_url = 'http://127.0.0.1:63344/xeblog-ui/'
-Vue.prototype.$image_url = 'http://127.0.0.1:8080/'
+Vue.prototype.$blog_url = process.env.VUE_APP_BLOG_URL
+Vue.prototype.$image_url = process.env.VUE_APP_API_URL
 
 new Vue({
   router,

@@ -5,7 +5,9 @@ import axios from "axios"
 import Cookies from 'js-cookie'
 import router from '@/router'
 
-const api_url = 'http://127.0.0.1:8080/'
+const api_url = process.env.VUE_APP_API_URL
+
+console.log(process)
 
 // 记录和显示错误
 function addLog (type, err) {
