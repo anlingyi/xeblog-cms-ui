@@ -4,7 +4,7 @@
       <el-button type="primary" icon="el-icon-edit-outline" @click="editArticle">提交修改</el-button>
     </section>
     <el-form ref="article" :rules="rules" :model="article" label-width="80px">
-      <el-collapse accordion value="1">
+      <el-collapse accordion>
         <el-collapse-item name="1">
           <template slot="title">
             文章基础信息 <i class="fa fa-edit"></i>
@@ -60,14 +60,11 @@
             <el-input type="textarea" v-model="article.brief" style="width: 550px;" rows="9" placeholder="简述..."/>
           </div>
         </el-collapse-item>
-        <el-collapse-item title="title" name="2">
-          <template slot="title">
-            文章内容 <i class="fa fa-edit"></i>
-          </template>
-          <el-form-item prop="content" style="margin-left: -80px">
+        <div v-if="showMde">
+          <el-form-item prop="content" style="margin-left: -80px;margin-top: 15px;">
             <d2-mde v-model="article.content" class="mde"/>
           </el-form-item>
-        </el-collapse-item>
+        </div>
       </el-collapse>
     </el-form>
   </d2-container>
@@ -79,6 +76,7 @@
         name: 'articles-edit',
         data() {
             return {
+                showMde: false,
                 article: {
                     id: 0,
                     cover: null,
@@ -120,6 +118,7 @@
                 }).then((response) => {
                     let data = response.data.data
                     this.article = data
+                    this.showMde = true
                     if(data.cover != null && data.cover != ''){
                         this.imageUrl = this.$image_url + data.cover;
                     }
