@@ -1,5 +1,8 @@
 <template>
-  <textarea ref="mde"></textarea>
+  <div>
+    <textarea ref="mde"></textarea>
+    <input type="file" ref="file" @change="readFile()" v-show="false"/>
+  </div>
 </template>
 
 <script>
@@ -51,12 +54,42 @@ export default {
         // 初始值
         initialValue: this.value,
         // 挂载元素
-        element: this.$refs.mde
+        element: this.$refs.mde,
+        toolbar: [
+            {"name":"bold","className":"fa fa-bold","title":"Bold","default":true, "action": SimpleMDE.toggleBold},
+            {"name":"italic","className":"fa fa-italic","title":"Italic","default":true, "action": SimpleMDE.toggleItalic},
+            {"name":"heading","className":"fa fa-header","title":"Heading","default":true, "action": SimpleMDE.toggleHeadingSmaller},
+            "|",
+            {"name":"quote","className":"fa fa-quote-left","title":"Quote","default":true, "action": SimpleMDE.toggleBlockquote},
+            {"name":"unordered-list","className":"fa fa-list-ul","title":"Generic List","default":true, "action": SimpleMDE.toggleUnorderedList},
+            {"name":"ordered-list","className":"fa fa-list-ol","title":"Numbered List","default":true, "action": SimpleMDE.toggleOrderedList},
+            "|",
+            {"name":"link","className":"fa fa-link","title":"Create Link","default":true, "action": SimpleMDE.drawLink},
+            {"name":"image","className":"fa fa-picture-o","title":"Insert Image","default":true, "action": SimpleMDE.drawImage},
+            "|",
+            {"name":"preview","className":"fa fa-eye no-disable","title":"Toggle Preview","default":true, "action": SimpleMDE.togglePreview},
+            {"name":"side-by-side","className":"fa fa-columns no-disable no-mobile","title":"Toggle Side by Side","default":true, "action": SimpleMDE.toggleSideBySide},
+            {"name":"fullscreen","className":"fa fa-arrows-alt no-disable no-mobile","title":"Toggle Fullscreen","default":true, "action": SimpleMDE.toggleFullScreen},
+            "|",
+            {"name":"file","className":"fa fa-file","title":"Importing Files","action": this.selectFile},
+            '|',
+            {"name":"guide","action":"https://simplemde.com/markdown-guide","className":"fa fa-question-circle","title":"Markdown Guide","default":true},
+            "|"]
       })
       this.mde.codemirror.on('change', () => {
-        this.$emit('input', this.mde.value())
+          this.$emit('input', this.mde.value())
       })
-    }
+    },
+    selectFile(){
+        this.$refs.file.click()
+    },
+    readFile(){
+        const reader = new FileReader()
+        reader.onload = e => {
+            this.mde.value(e.target.result)
+        }
+        reader.readAsText(this.$refs.file.files[0])
+    },
   }
 }
 </script>

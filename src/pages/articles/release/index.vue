@@ -61,7 +61,7 @@
           </div>
         </el-collapse-item>
         <el-form-item prop="content" style="margin-left: -80px;margin-top: 15px;">
-          <d2-mde v-model="article.content" class="mde" placeholder="开始写作吧..."/>
+          <d2-mde ref="mdeText" v-model="article.content" class="mde" placeholder="开始写作吧..."/>
         </el-form-item>
       </el-collapse>
     </el-form>
