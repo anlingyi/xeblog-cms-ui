@@ -22,7 +22,6 @@ import { frameInRoutes } from '@/router/routes'
 Vue.use(d2Admin)
 
 Vue.prototype.$blog_url = process.env.VUE_APP_BLOG_URL
-Vue.prototype.$image_url = process.env.VUE_APP_IMAGE_URL
 
 new Vue({
   router,

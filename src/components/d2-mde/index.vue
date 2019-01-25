@@ -197,7 +197,7 @@
                 Upload(formData).then((response) => {
                     let data = response.data.data;
                     if (data.file != null && data.file != '' && data.file != undefined) {
-                        this.mde.drawImageByUrl(this.$image_url + data.file)
+                        this.mde.drawImageByUrl(data.file)
                     }
                 })
 

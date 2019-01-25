@@ -54,7 +54,7 @@
                     let data = response.data.data;
                     this.userInfo = data
                     if(data.avatar != null && data.avatar != ''){
-                        this.imageUrl = this.$image_url + data.avatar;
+                        this.imageUrl = data.avatar;
                     }
                 })
             },
@@ -90,7 +90,7 @@
                     let data = response.data.data;
                     if(data.file != null && data.file != '' && data.file != undefined){
                         this.userInfo.avatar = data.file
-                        this.imageUrl = this.$image_url + data.file
+                        this.imageUrl = data.file
                     }
                 })
             }

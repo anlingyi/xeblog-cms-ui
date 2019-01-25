@@ -137,7 +137,7 @@
                     let data = response.data.data;
                     if(data.file != null && data.file != '' && data.file != undefined){
                         this.article.cover = data.file
-                        this.imageUrl = this.$image_url + data.file
+                        this.imageUrl = data.file
                     }
                 })
             },
