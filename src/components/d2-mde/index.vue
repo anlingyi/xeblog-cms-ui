@@ -8,7 +8,7 @@
 <script>
     import SimpleMDE from 'simplemde'
     import 'simplemde/dist/simplemde.min.css'
-    import {Upload} from '@/api'
+    import {UploadImage} from '@/api'
 
     export default {
         name: 'd2-mde',
@@ -194,7 +194,7 @@
                 let formData = new FormData()
                 formData.append("file", file)
 
-                Upload(formData).then((response) => {
+                UploadImage(formData).then((response) => {
                     let data = response.data.data;
                     if (data.file != null && data.file != '' && data.file != undefined) {
                         this.mde.drawImageByUrl(data.file)

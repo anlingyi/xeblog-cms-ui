@@ -196,3 +196,15 @@ export function EditPassword (data) {
         data
     })
 }
+
+// 上传图片
+export function UploadImage(data) {
+    return request({
+        url: admin_api + 'upload/image',
+        method: 'post',
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}

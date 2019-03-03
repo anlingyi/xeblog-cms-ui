@@ -133,7 +133,7 @@
                 let formData = new FormData()
                 formData.append("file", param.file)
 
-                api.Upload(formData).then((response) => {
+                api.UploadImage(formData).then((response) => {
                     let data = response.data.data;
                     if(data.file != null && data.file != '' && data.file != undefined){
                         this.article.cover = data.file
