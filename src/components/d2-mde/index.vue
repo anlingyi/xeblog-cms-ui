@@ -1,10 +1,16 @@
 <template>
     <div>
         <textarea ref="mde"></textarea>
-        <input type="file" ref="file" @change="readFile()" v-show="false"/>
+        <input type="file" ref="file" @change="readFile" v-show="false"/>
+        <input type="file" ref="image" @change="uploadImages(null)" v-show="false"/>
     </div>
 </template>
-
+<style>
+    .CodeMirror-scroll{
+        height: 300px;
+        overflow-y: scroll;
+    }
+</style>
 <script>
     import SimpleMDE from 'simplemde'
     import 'simplemde/dist/simplemde.min.css'
@@ -121,7 +127,7 @@
                             "className": "fa fa-picture-o",
                             "title": "Insert Image",
                             "default": true,
-                            "action": SimpleMDE.drawImage
+                            "action": this.selectImage
                         },
                         "|",
                         {
@@ -183,14 +189,27 @@
             selectFile() {
                 this.$refs.file.click()
             },
+            selectImage(){
+                this.$refs.image.click();
+            },
             readFile() {
+                if(!this.checkFile(this.$refs.file.files[0])){
+                    return;
+                }
                 const reader = new FileReader()
                 reader.onload = e => {
                     this.mde.value(e.target.result)
                 }
-                reader.readAsText(this.$refs.file.files[0])
+                reader.readAsText(this.$refs.file.files[0]);
             },
             uploadImages(file) {
+                if(file == null || file == undefined){
+                    file = this.$refs.image.files[0];
+                }
+                if(!this.checkImage(file)){
+                    return;
+                }
+
                 let formData = new FormData()
                 formData.append("file", file)
 
@@ -201,6 +220,38 @@
                     }
                 })
 
+            },
+            checkImage(file){
+                if(file == null || file == undefined){
+                    return false;
+                }
+                const isJPG = file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/gif'
+                    || file.type === 'image/jpeg';
+                const isLt20M = file.size / 1024 / 1024 < 20;
+
+                if (!isJPG) {
+                    this.$message.error('上传的图片格式不正确!');
+                }
+                if (!isLt20M) {
+                    this.$message.error('上传的图片大小不能超过 20MB!');
+                }
+                return isJPG && isLt20M;
+            },
+            checkFile(file){
+                if(file == null || file == undefined){
+                    return false;
+                }
+                console.log('type -> ', file.type)
+                const isText = file.type === '' || file.type === 'text/plain';
+                const isLt30M = file.size / 1024 / 1024 < 30;
+
+                if (!isText) {
+                    this.$message.error('请上传文本文件!');
+                }
+                if (!isLt30M) {
+                    this.$message.error('上传的文件大小不能超过 30MB!');
+                }
+                return isText && isLt30M;
             }
         }
     }

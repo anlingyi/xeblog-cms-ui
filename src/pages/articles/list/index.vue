@@ -81,7 +81,7 @@
             },
             // 查看文章
             viewArticle (id) {
-                window.location.href = this.$blog_url + 'articles/preview.html?id=' + id
+                window.open(this.$blog_url + 'articles/preview.html?id=' + id)
             },
             // 删除文章确认
             deleteArticleConfirm (val) {

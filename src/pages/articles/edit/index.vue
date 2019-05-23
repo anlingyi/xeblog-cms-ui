@@ -1,8 +1,5 @@
 <template>
   <d2-container>
-    <section style="margin-bottom: 10px; display: flex; flex-direction: row-reverse;">
-      <el-button type="primary" icon="el-icon-edit-outline" @click="editArticle">提交修改</el-button>
-    </section>
     <el-form ref="article" :rules="rules" :model="article" label-width="80px">
       <el-collapse accordion>
         <el-collapse-item name="1">
@@ -67,6 +64,9 @@
         </div>
       </el-collapse>
     </el-form>
+    <section style="margin-top: 10px; display: flex; flex-direction: row-reverse;">
+      <el-button type="primary" icon="el-icon-edit-outline" @click="editArticle">提交修改</el-button>
+    </section>
   </d2-container>
 </template>
 
