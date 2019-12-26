@@ -5,7 +5,7 @@ const resolve = dir => require('path').join(__dirname, dir)
 let baseUrl = ''
 
 module.exports = {
-  baseUrl: baseUrl, // 根据你的实际情况更改这里
+  publicPath: baseUrl, // 根据你的实际情况更改这里
   lintOnSave: true,
   devServer: {
     publicPath: baseUrl // 和 baseUrl 保持一致

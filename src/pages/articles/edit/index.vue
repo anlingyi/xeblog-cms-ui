@@ -32,6 +32,7 @@
                 <img v-if="imageUrl != '' && imageUrl != null" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
+                <el-input v-model="article.cover" placeholder="输入图片地址" @blur="updateImageUrl"></el-input>
             </el-form-item>
             <el-form-item label="置顶" class="label-bold input-width-500">
               <el-switch
@@ -169,6 +170,9 @@
                         })
                     }
                 })
+            },
+            updateImageUrl() {
+                this.imageUrl = this.article.cover
             }
         },
         mounted: function(){
