@@ -208,3 +208,12 @@ export function UploadImage(data) {
         }
     })
 }
+
+// 订阅用户列表
+export function SubscriberList(data) {
+    return request({
+        url: admin_api + 'subscriber',
+        method: 'get',
+        params: data
+    })
+}

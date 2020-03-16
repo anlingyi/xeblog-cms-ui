@@ -38,5 +38,12 @@ export default [
             { path: '/website/blogger-edit', title: '博主信息修改', icon: 'id-card-o' },
             { path: '/website/password-edit', title: '密码修改', icon: 'lock' },
         ]
-    }
+    },
+    {
+        title: '订阅管理',
+        icon: 'feed',
+        children: [
+            {path: '/subscriber-list', title: '订阅列表', icon: 'list'},
+        ]
+    },
 ]

@@ -104,6 +104,13 @@ const frameIn = [
             name: 'website-password-edit',
             component: () => import('@/pages/website/password/edit'),
             meta: {meta, title: '密码修改', cache: true}
+        },
+        // 订阅列表
+        {
+            path: '/subscriber-list',
+            name: 'subscriber-list',
+            component: () => import('@/pages/subscriber/list'),
+            meta: {meta, title: '订阅列表'}
         }
     ]
   }
