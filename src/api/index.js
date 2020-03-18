@@ -217,3 +217,21 @@ export function SubscriberList(data) {
         params: data
     })
 }
+
+// 文章推送统计
+export function ArticlePushStatistics(data) {
+    return request({
+        url: admin_api + 'push/articlePushStatistics',
+        method: 'get',
+        params: data
+    })
+}
+
+// 文章推送
+export function ArticlePush(data) {
+    return request({
+        url: admin_api + 'push',
+        method: 'post',
+        params: data
+    })
+}
