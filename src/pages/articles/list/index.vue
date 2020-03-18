@@ -187,16 +187,21 @@
             },
             // 文章推送
             pushArticle() {
-                this.sendStatusTimer();
-                api.ArticlePush({
-                    articleId: this.articleId
-                }).then(res => {
-                    let data = res.data
-                    if (data.code === 200) {
-                        this.$message.success('正在推送中...')
-                        this.pollGetArticlePushStatistics()
-                    }
-                })
+                this.$confirm('确定要推送吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.sendStatusTimer();
+                    api.ArticlePush({
+                        articleId: this.articleId
+                    }).then(res => {
+                        let data = res.data
+                        if (data.code === 200) {
+                            this.$message.success('正在推送中...')
+                        }
+                    })
+                });
             },
             async sendStatusTimer() {
                 this.sendStatus = true
