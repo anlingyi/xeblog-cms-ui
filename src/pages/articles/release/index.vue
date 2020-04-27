@@ -60,7 +60,7 @@
                     </div>
                 </el-collapse-item>
                 <el-form-item prop="content" style="margin-left: -80px;margin-top: 15px;">
-                    <d2-mde ref="mdeText" v-model="article.content" class="mde" placeholder="开始写作吧..."/>
+                    <xe-mde :content="article.content" @changeContent="val => {this.article.content = val}"/>
                 </el-form-item>
             </el-collapse>
         </el-form>
@@ -157,6 +157,12 @@
                             let data = response.data;
                             if (data.code === 200) {
                                 this.$message.success('发布成功！')
+                                this.$store.dispatch('d2admin/page/close', {
+                                    tagName: 'articles-release'
+                                })
+                                this.$router.push({
+                                    name: 'articles-list'
+                                })
                             }
                         })
                     }

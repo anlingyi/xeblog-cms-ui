@@ -9,17 +9,17 @@ import store from '@/store/index'
 import '@/mock'
 // 多国语
 import i18n from './i18n'
+
 // 核心插件
 import d2Admin from '@/plugin/d2admin'
+// 核心插件
+Vue.use(d2Admin)
 
 // 菜单和路由设置
 import router from './router'
 import menuHeader from '@/menu/header'
 import menuAside from '@/menu/aside'
 import { frameInRoutes } from '@/router/routes'
-
-// 核心插件
-Vue.use(d2Admin)
 
 Vue.prototype.$blog_url = process.env.VUE_APP_BLOG_URL
 

@@ -60,7 +60,7 @@
         </el-collapse-item>
         <div v-if="showMde">
           <el-form-item prop="content" style="margin-left: -80px;margin-top: 15px;">
-            <d2-mde v-model="article.content" class="mde"/>
+            <xe-mde :content="article.content" @changeContent="val => {this.article.content = val}"/>
           </el-form-item>
         </div>
       </el-collapse>
