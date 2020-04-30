@@ -148,13 +148,13 @@
             },
             upload(param){
                 let formData = new FormData()
-                formData.append("file", param.file)
+              formData.append("files", param.file)
 
                 api.UploadImage(formData).then((response) => {
                     let data = response.data.data;
-                    if(data.file != null && data.file != '' && data.file != undefined){
-                        this.article.cover = data.file
-                        this.imageUrl = data.file
+                  if (data && data.length > 0) {
+                    this.article.cover = data[0]
+                    this.imageUrl = data[0]
                     }
                 })
             },

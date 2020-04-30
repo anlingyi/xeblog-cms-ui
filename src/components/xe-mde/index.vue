@@ -28,12 +28,12 @@
         methods: {
             $imgAdd(pos, $file) {
                 let formData = new FormData()
-                formData.append("file", $file)
+                formData.append("files", $file)
 
                 UploadImage(formData).then((response) => {
                     let data = response.data.data;
-                    if (data.file) {
-                        this.$refs.md.$img2Url(pos, data.file)
+                    if (data && data.length > 0) {
+                        this.$refs.md.$img2Url(pos, data[0])
                     }
                 })
             }
