@@ -188,8 +188,17 @@
                 return isJPG && isLt20M;
             },
             upload(param) {
+              let watermarked = false
+              this.$confirm('添加水印？', '确认操作', {
+                confirmButtonText: '是',
+                cancelButtonText: '否',
+                type: 'info'
+              }).then(() => {
+                watermarked = true
+              }).finally(() => {
                 let formData = new FormData()
                 formData.append("files", param.file)
+                formData.append("watermarked", watermarked);
 
                 api.UploadImage(formData).then((response) => {
                     let data = response.data.data;
@@ -197,6 +206,7 @@
                     this.article.cover = data[0]
                     this.imageUrl = data[0]
                     }
+                })
                 })
             },
             updateImageUrl() {
