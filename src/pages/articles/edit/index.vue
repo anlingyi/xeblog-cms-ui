@@ -19,7 +19,33 @@
               </el-select>
             </el-form-item>
             <el-form-item label="文章标签" class="label-bold input-width-500">
-              <el-input v-model="article.tag" placeholder="标签"/>
+                <el-select
+                        v-model="tags"
+                        multiple
+                        filterable
+                        allow-create
+                        default-first-option
+                        remote
+                        reserve-keyword
+                        placeholder="添加标签"
+                        :remote-method="blurryQueryTags"
+                        :loading="tagLoading">
+                    <el-option
+                            v-for="tag in queryTags"
+                            :key="tag"
+                            :label="tag"
+                            :value="tag">
+                    </el-option>
+                </el-select>
+                <!--                <el-autocomplete-->
+                <!--                        :select-when-unmatched="true"-->
+                <!--                        :fetch-suggestions="blurryQueryTags"-->
+                <!--                        @select="addTag"-->
+                <!--                        placeholder="添加标签">-->
+                <!--                    <template slot-scope="{ item }">-->
+                <!--                        <div>{{ item }}</div>-->
+                <!--                    </template>-->
+                <!--                </el-autocomplete>-->
             </el-form-item>
             <el-form-item label="文章封面" class="label-bold input-width-500">
               <el-upload
@@ -117,7 +143,10 @@
                     content: [
                         {required: true, message: '请输入文章内容', trigger: 'blur'},
                     ]
-                }
+                },
+                tags: [],
+                queryTags: [],
+                tagLoading: false
             }
         },
         methods: {
@@ -131,6 +160,9 @@
                     this.showMde = true
                     if(data.cover != null && data.cover != ''){
                         this.imageUrl = data.cover;
+                    }
+                    if (data.tag && data.tag != null) {
+                        this.tags = data.tag.split(',')
                     }
                 })
             },
@@ -155,9 +187,9 @@
 
                 return isJPG && isLt20M;
             },
-            upload(param){
+            upload(param) {
                 let formData = new FormData()
-              formData.append("files", param.file)
+                formData.append("files", param.file)
 
                 api.UploadImage(formData).then((response) => {
                     let data = response.data.data;
@@ -173,6 +205,8 @@
             saveOrUpdateArticle() {
                 this.$refs.article.validate((valid) => {
                     if (valid) {
+                        this.article.tag = this.tags.join(',')
+
                         if (this.article.id) {
                             // 更新
                             api.EditArticle(this.article).then((response) => {
@@ -196,6 +230,18 @@
                                     })
                                 }
                             })
+                        }
+                    }
+                })
+            },
+            blurryQueryTags(str) {
+                this.tagLoading = true
+                api.BlurryQueryTags(str).then(resp => {
+                    this.tagLoading = false
+                    let data = resp.data;
+                    if (data.code === 200) {
+                        if (data.data) {
+                            this.queryTags = data.data
                         }
                     }
                 })

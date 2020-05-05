@@ -235,3 +235,14 @@ export function ArticlePush(data) {
         params: data
     })
 }
+
+// 文章推送
+export function BlurryQueryTags(data) {
+    return request({
+        url: admin_api + 'tags/blurry',
+        method: 'get',
+        params: {
+            tag: data
+        }
+    })
+}
