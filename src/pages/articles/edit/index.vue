@@ -66,30 +66,39 @@
       </el-collapse>
     </el-form>
     <section style="margin-top: 10px; display: flex; flex-direction: row-reverse;">
-      <el-button type="primary" icon="el-icon-edit-outline" @click="editArticle">提交修改</el-button>
+        <el-button type="primary" icon="el-icon-edit-outline" @click="saveOrUpdateArticle">{{ this.article.id ? '提交修改' :
+            '发布文章' }}
+        </el-button>
     </section>
   </d2-container>
 </template>
 
 <script>
     import * as api from '@/api'
+    import {mapState} from 'vuex'
+
     export default {
         name: 'articles-edit',
+        computed: {
+            ...mapState('d2admin/user', [
+                'info'
+            ])
+        },
         data() {
             return {
                 showMde: false,
                 article: {
-                    id: 0,
-                    cover: null,
+                    id: '',
+                    cover: '',
                     isTop: 0,
                     isPrivate: 0,
-                    brief: null,
-                    title: null,
-                    categoryName: null,
-                    tag: null,
-                    author: null,
-                    categoryId: null,
-                    content: null
+                    brief: '',
+                    title: '',
+                    categoryName: '',
+                    tag: '',
+                    author: '',
+                    categoryId: '',
+                    content: ''
                 },
                 imageUrl: '',
                 categoryList: [],
@@ -158,35 +167,54 @@
                     }
                 })
             },
-            editArticle(){
-                this.$refs.article.validate((valid) => {
-                    if (valid) {
-                        api.EditArticle(this.article).then((response) => {
-                            let data = response.data;
-                            if(data.code === 200){
-                                this.$message.success('修改成功！')
-                                this.getArticleDetails()
-                            }
-                        })
-                    }
-                })
-            },
             updateImageUrl() {
                 this.imageUrl = this.article.cover
+            },
+            saveOrUpdateArticle() {
+                this.$refs.article.validate((valid) => {
+                    if (valid) {
+                        if (this.article.id) {
+                            // 更新
+                            api.EditArticle(this.article).then((response) => {
+                                let data = response.data;
+                                if (data.code === 200) {
+                                    this.$message.success('修改成功！')
+                                    this.getArticleDetails()
+                                }
+                            })
+                        } else {
+                            // 新增
+                            api.AddArticle(this.article).then((response) => {
+                                let data = response.data;
+                                if (data.code === 200) {
+                                    this.$message.success('发布成功！')
+                                    this.$store.dispatch('d2admin/page/close', {
+                                        tagName: 'articles-release'
+                                    })
+                                    this.$router.push({
+                                        name: 'articles-list'
+                                    })
+                                }
+                            })
+                        }
+                    }
+                })
             }
         },
         mounted: function(){
-            this.article.id = this.$route.query.id
-            this.getArticleDetails()
+            if (this.$route.query.id) {
+                this.article.id = this.$route.query.id
+                this.getArticleDetails()
+            } else {
+                this.article.author = this.info.name
+                this.showMde = true
+            }
             this.getCategoryList()
         }
     }
 </script>
 
 <style>
-  .mde {
-    margin-bottom: -16px;
-  }
   .label-bold label{
     font-weight: bold;
   }

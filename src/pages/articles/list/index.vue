@@ -30,7 +30,6 @@
         <template slot-scope="scope">
             <el-button size="small" type="primary" @click="showPushDialogs(scope.row)"><i class="fa fa-send-o"></i> 推送
             </el-button>
-          <el-button size="small" type="primary" icon="el-icon-view" @click="viewArticle(scope.row.id)">查看</el-button>
           <el-button size="small" type="primary" icon="el-icon-edit" @click="editArticle(scope.row.id)">编辑</el-button>
           <el-button size="small" type="danger" icon="el-icon-delete" @click="deleteArticleConfirm(scope.row)">删除</el-button>
         </template>
@@ -118,10 +117,6 @@
             handleCurrentChange: function (val) {
                 this.currentPage = val
                 this.getArticlesList(this.currentPage, this.pagesize)
-            },
-            // 查看文章
-            viewArticle (id) {
-                window.open(this.$blog_url + 'articles/preview.html?id=' + id)
             },
             // 删除文章确认
             deleteArticleConfirm (val) {
