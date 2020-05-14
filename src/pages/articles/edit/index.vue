@@ -257,7 +257,7 @@
                 })
             }
         },
-        mounted: function(){
+        mounted() {
             if (this.$route.query.id) {
                 this.article.id = this.$route.query.id
                 this.getArticleDetails()
@@ -265,7 +265,16 @@
                 this.article.author = this.info.name
                 this.showMde = true
             }
+
             this.getCategoryList()
+
+            document.onkeydown = (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    this.saveOrUpdateArticle()
+                    e.preventDefault()
+                    return false
+                }
+            }
         }
     }
 </script>
