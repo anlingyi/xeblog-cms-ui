@@ -42,7 +42,7 @@ service.interceptors.request.use(function (config) {
         }
 
         config.headers['token'] = Cookies.get('token')
-        config.headers['userId'] =  Cookies.get('userId');
+        config.headers['uid'] = Cookies.get('uid');
 
         if (config.headers['Content-Type'] === "" || config.headers['Content-Type'] === undefined) {
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded';

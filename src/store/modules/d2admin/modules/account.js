@@ -28,7 +28,7 @@ export default {
       })
         .then(async res => {
           const data = res.data.data
-          Cookies.set('userId', data.id)
+            Cookies.set('uid', data.uid)
           Cookies.set('token', data.token)
           // 设置 vuex 用户信息
           await dispatch('d2admin/user/set', {
