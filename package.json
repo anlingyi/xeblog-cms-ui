@@ -22,7 +22,7 @@
     "fuse.js": "^3.6.1",
     "hotkeys-js": "^3.7.6",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "lowdb": "^1.0.0",
     "mavon-editor": "^2.9.0",
     "mockjs": "^1.1.0",
