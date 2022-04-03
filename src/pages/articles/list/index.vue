@@ -15,13 +15,24 @@
           </el-switch>
         </template>
       </el-table-column>
-        <el-table-column prop="isPrivate" label="私有" width="100">
+      <el-table-column prop="isPrivate" label="私有" width="100">
         <template slot-scope="scope">
           <el-switch
                   v-model="scope.row.isPrivate === 1"
                   active-color="#13ce66"
                   inactive-color="#ff4949"
                   disabled>
+          </el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column prop="isRcmd" label="推荐" width="100">
+        <template slot-scope="scope">
+          <el-switch
+              v-model="scope.row.isRcmd === 1"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              @change="changeRecommend(scope.row)"
+              >
           </el-switch>
         </template>
       </el-table-column>
@@ -203,7 +214,22 @@
                 setTimeout(() => {
                     this.sendStatus = false
                 }, 3000)
-            }
+            },
+          // 修改文章推荐状态
+          changeRecommend(obj) {
+              let status = 1 - obj.isRcmd;
+              api.SetRecommend({
+                id: obj.id,
+                status: status
+              }).then(res => {
+                let data = res.data
+                if (data.code === 200) {
+                  this.$message.success('推荐状态修改成功！')
+                  this.currentPage = 1
+                  this.getArticlesList(this.currentPage, this.pagesize)
+                }
+              })
+          }
         },
         mounted() {
             this.getArticlesList(this.currentPage, this.pagesize)

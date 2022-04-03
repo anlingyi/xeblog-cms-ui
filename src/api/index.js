@@ -76,6 +76,15 @@ export function AddArticle (data) {
         data
     })
 }
+// 设置文章推荐
+export function SetRecommend(data) {
+    return request({
+        url: admin_api + 'articles/recommend',
+        method: 'put',
+        data
+    })
+}
+
 // 分类列表
 export function CategoryList (data) {
     return request({
@@ -236,7 +245,7 @@ export function ArticlePush(data) {
     })
 }
 
-// 文章推送
+// 模糊查询标签
 export function BlurryQueryTags(data) {
     return request({
         url: admin_api + 'tags/blurry',
