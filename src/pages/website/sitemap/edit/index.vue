@@ -5,10 +5,10 @@
     </section>
     <el-form ref="sitemap" :rules="rules" :model="sitemap" label-width="120px">
       <el-form-item label="访问域名：" prop="domain" class="label-bold input-width-500">
-        <el-input v-model="sitemap.domain" placeholder="请输入网站标题"></el-input>
+        <el-input v-model="sitemap.domain" placeholder="请输入访问域名"></el-input>
       </el-form-item>
       <el-form-item label="文件输出路径：" prop="outPath" class="label-bold input-width-500">
-        <el-input v-model="sitemap.outPath" placeholder="请输入网站副标题"></el-input>
+        <el-input v-model="sitemap.outPath" placeholder="请输入文件输出路径"></el-input>
       </el-form-item>
       <el-form-item label="最近生成时间：" prop="lastUpdate" class="label-bold input-width-500">
         {{ sitemap.lastUpdate }}
