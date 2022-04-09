@@ -105,6 +105,13 @@ const frameIn = [
             component: () => import('@/pages/website/password/edit'),
             meta: {meta, title: '密码修改', cache: true}
         },
+        // 站点地图
+        {
+            path: '/website/sitemap-config-edit',
+            name: 'sitemap-config-edit',
+            component: () => import('@/pages/website/sitemap/edit'),
+            meta: {meta, title: '站点地图', cache: true}
+        },
         // 订阅列表
         {
             path: '/subscriber-list',

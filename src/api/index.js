@@ -255,3 +255,29 @@ export function BlurryQueryTags(data) {
         }
     })
 }
+
+// 站点地图配置
+export function UpdateSitemapConfig(data) {
+    return request({
+        url: admin_api + 'sitemap/config',
+        method: 'post',
+        data
+    })
+}
+
+// 站点地图生成
+export function SitemapGenerate(data) {
+    return request({
+        url: admin_api + 'sitemap/generate',
+        method: 'post',
+        data
+    })
+}
+
+// 获取站点地图配置信息
+export function GetSitemapConfig() {
+    return request({
+        url: admin_api + 'sitemap',
+        method: 'get'
+    })
+}

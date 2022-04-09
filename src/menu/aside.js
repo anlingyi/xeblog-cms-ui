@@ -37,6 +37,7 @@ export default [
             { path: '/website/info-edit', title: '网站信息修改', icon: 'edit' },
             { path: '/website/blogger-edit', title: '博主信息修改', icon: 'id-card-o' },
             { path: '/website/password-edit', title: '密码修改', icon: 'lock' },
+            { path: '/website/sitemap-config-edit', title: '站点地图', icon: 'sitemap' },
         ]
     },
     {

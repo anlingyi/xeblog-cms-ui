@@ -116,7 +116,7 @@
                     let data = response.data.data
                     this.articlesList = data.list
                     this.total = data.total
-                    this.currentPage = data.pageIndex
+                    this.currentPage = data.pageNum
                 })
             },
             // 每页显示数据量变更
@@ -225,14 +225,13 @@
                 let data = res.data
                 if (data.code === 200) {
                   this.$message.success('推荐状态修改成功！')
-                  this.currentPage = 1
-                  this.getArticlesList(this.currentPage, this.pagesize)
+                  this.getArticlesList()
                 }
               })
           }
         },
         mounted() {
-            this.getArticlesList(this.currentPage, this.pagesize)
+            this.getArticlesList()
         }
     }
 </script>
