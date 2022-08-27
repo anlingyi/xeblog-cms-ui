@@ -84,6 +84,22 @@ export function SetRecommend(data) {
         data
     })
 }
+// 设置文章置顶
+export function SetTop(data) {
+    return request({
+        url: admin_api + 'articles/top',
+        method: 'put',
+        data
+    })
+}
+// 设置文章私有
+export function SetPrivate(data) {
+    return request({
+        url: admin_api + 'articles/private',
+        method: 'put',
+        data
+    })
+}
 
 // 分类列表
 export function CategoryList (data) {
